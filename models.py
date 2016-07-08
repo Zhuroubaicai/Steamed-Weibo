@@ -84,7 +84,7 @@ class User(db.Model, ReprMixin):
         return status, msgs
 
 class Tweets(db.Model, ReprMixin):
-    __table__ = 'tweets'
+    __tablename__ = 'tweets'
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String())
     auther_id = db.Column(db.Integer)

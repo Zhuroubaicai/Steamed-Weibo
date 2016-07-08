@@ -78,9 +78,16 @@ def register():
         r['message'] = '\n'.join(msgs)
     return jsonify(r)
 
+# 显示大厅界面的函数
 @app.route('/index')
 def index_view():
     return render_template("index.html")
+
+@app.route('/tweet/add/<tweet_id>')
+def tweet_add():
+    form = request.get_json()
+    
+    
 
 if __name__ == '__main__':
     config = {
