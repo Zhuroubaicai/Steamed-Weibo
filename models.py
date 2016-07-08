@@ -83,6 +83,32 @@ class User(db.Model, ReprMixin):
         status = valid_username and valid_username_len and valid_password_len
         return status, msgs
 
+class Tweets(db.Model, ReprMixin):
+    __table__ = 'tweets'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String())
+    auther_id = db.Column(db.Integer)
+    
+    def __init__(self, form):
+        super(User, self).__init__()
+        self.content = form.get('content', '')
+        self.auther_id = form.get('auther_id', '')
+    
+    def json(self):
+        d = self.__dict__
+        return d
+
+    def update(self, form):
+        print('user.update, ',form)
+        self.content = form.get('content', self.content)
+
+    def save(self):
+        db.session.add(self) 
+        db.session.commit()
+       
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 def backup_db():
