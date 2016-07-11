@@ -15,10 +15,10 @@ var formFromKeys = function(keys, prefix) {
         var key = keys[i];
         var tagid = prefix + key;
         var value = $('#' + tagid).val();
-        if (value.length < 1) {
-            // alert('字段不能为空');
-            break;
-        }
+        // if (value.length < 1) {
+        //     // alert('字段不能为空');
+        //     break;
+        // }
         form[key] = value;
     }
     return form;
@@ -56,6 +56,10 @@ weibo.login = function(form, success, error) {
     this.post(url, form, success, error);
 };
 
+weibo.tweetAdd = function(form, success, error){
+    var url = '/api/tweet/add';
+    this.post(url, form, success, error);
+}
 weibo.search = function(form, success, error){
     var url = '/search';
     this.post(url, form, success, error);

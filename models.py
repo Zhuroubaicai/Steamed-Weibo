@@ -83,14 +83,14 @@ class User(db.Model, ReprMixin):
         status = valid_username and valid_username_len and valid_password_len
         return status, msgs
 
-class Tweets(db.Model, ReprMixin):
+class Tweet(db.Model, ReprMixin):
     __tablename__ = 'tweets'
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String())
-    auther_id = db.Column(db.Integer)
+    author_id = db.Column(db.Integer)
     
     def __init__(self, form):
-        super(User, self).__init__()
+        super(Tweet, self).__init__()
         self.content = form.get('content', '')
         self.auther_id = form.get('auther_id', '')
     

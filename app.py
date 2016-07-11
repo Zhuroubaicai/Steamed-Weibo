@@ -5,7 +5,7 @@ from flask import url_for
 from flask import render_template
 from flask import jsonify
 from flask import session
-
+from api import api
 
 from models import User
 
@@ -13,6 +13,7 @@ from models import User
 app = Flask(__name__)
 app.secret_key = 'random string'
 
+app.register_blueprint(api)
 
 # 通过 session 来获取当前登录的用户
 def current_user():
@@ -46,9 +47,10 @@ def login():
         'success': False,
         'message': '登录失败',
     }
+    print(user)
     if user is not None and user.validate_auth(form):
         r['success'] = True
-        r['next'] = url_for('login_view')
+        r['next'] = url_for('index_view')
         session.permanent = True
         session['username'] = username
 
@@ -72,7 +74,7 @@ def register():
         r['success'] = True
         # 下面这句可以在关闭浏览器后保持用户登录
         session.permanent = True
-        session['username'] = u.username
+        session['user'] = u
     else:
         r['success'] = False
         r['message'] = '\n'.join(msgs)
@@ -83,10 +85,6 @@ def register():
 def index_view():
     return render_template("index.html")
 
-@app.route('/tweet/add/<tweet_id>')
-def tweet_add():
-    form = request.get_json()
-    
     
 
 if __name__ == '__main__':
