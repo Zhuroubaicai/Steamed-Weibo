@@ -25,7 +25,7 @@ def current_user():
 
 @app.route('/')
 def index():
-    view = 'login_view'
+    view = 'index_view'
     return redirect(url_for(view))
 
 
@@ -80,7 +80,7 @@ def register():
         r['message'] = '\n'.join(msgs)
     return jsonify(r)
 
-# 显示大厅界面的函数
+# 显示大厅界面的函数 GET
 @app.route('/index')
 def index_view():
     return render_template("index.html")

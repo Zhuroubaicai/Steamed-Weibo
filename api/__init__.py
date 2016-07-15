@@ -36,8 +36,29 @@ def tweet_add():
             'message': '发送失败',
             'next': '/login',
         }
-    print(r)
     return jsonify(r)
+
+
+@api.route('/tweet/delete/<tweet_id>', methods=['POST'])
+def tweet_delete(tweet_id):
+    r = {}
+    t = Tweet(request.get_json())
+
+    u = current_user
+    if u is not None and u.id == t.id:
+        t.delete()
+        r = {
+            'success': True,
+            'message': '删除成功'
+        }
+    else:
+        r = {
+            'success': False,
+            'message': '发送失败',
+            'next': '/login',
+        }
+    return jsonify(r)
+        
 
 
 
