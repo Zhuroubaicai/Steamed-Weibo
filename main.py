@@ -1,4 +1,4 @@
-from app from init_app
+from app import init_app
 from app import models
 
 def rebuild_db():
@@ -10,6 +10,11 @@ def rebuild_db():
 
 
 def run():
-    config = dict{
+    config = dict(
         debug = True,
-    }
+    )
+    init_app().run(**config)
+
+if __name__ == '__main__':
+    #rebuild_db()
+    run()

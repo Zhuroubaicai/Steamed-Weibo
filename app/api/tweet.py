@@ -1,27 +1,19 @@
-from flask import Blueprint
-from flask import session
+from ..models import User
+from ..models import Tweet
+
+from . import main
+from . import current_user
+
 from flask import request
-from flask import render_template
 from flask import jsonify
-from models import Tweet
-from models import User
 
-_author = 'BaiCai'
 
-api = Blueprint('api',__name__, url_prefix='/api')
-
-def current_user():
-    # print('session, debug', session.permanent)
-    username = session.get('username', '')
-    u = User.query.filter_by(username=username).first()
-    return u
-
-@api.route('/tweet/add',methods=['POST'])
+@main.route('/tweet/add',methods=['POST'])
 def tweet_add():
+    u = current_user()
     r = {}
     t = Tweet(request.get_json())
-    
-    u = current_user()
+    t.user = u   
 
     if u is not None and len(t.content)>0 :
         t.author_id = u.id;
@@ -39,7 +31,7 @@ def tweet_add():
     return jsonify(r)
 
 
-@api.route('/tweet/delete/<tweet_id>', methods=['POST'])
+@main.route('/tweet/delete/<tweet_id>', methods=['POST'])
 def tweet_delete(tweet_id):
     r = {}
     t = Tweet(request.get_json())
@@ -59,6 +51,3 @@ def tweet_delete(tweet_id):
         }
     return jsonify(r)
         
-
-
-
