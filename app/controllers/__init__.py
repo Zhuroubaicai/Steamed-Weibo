@@ -9,11 +9,13 @@ main = Blueprint('controller', __name__)
 def current_user():
     username = session.get('username', '')
     u = User.query.filter_by(username=username).first()
+    return u
 
 
 @main.route('/')
 def index_view():
-    return render_template('index.html')
+    u = current_user()
+    return render_template('index.html', user = u)
 
 @main.route('/timeline')
 def timeline_view():

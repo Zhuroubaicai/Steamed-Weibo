@@ -15,7 +15,7 @@ class User(db.Model, ReprMixin):
 
     @staticmethod  
     def user_by_name(username):
-        return User.quert.filter_by(username=username).first() 
+        return User.query.filter_by(username=username).first() 
 
     def __init__(self, form):
         super(User, self).__init__()

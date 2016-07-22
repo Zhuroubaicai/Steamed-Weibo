@@ -35,7 +35,7 @@ def login():
     #验证用户名和密码
     if user is not None and user.validate_auth(form):
         r['success'] = True
-        r['next'] = request.args.get('next',url_for('controllers.index_view'))
+        r['next'] = request.args.get('next',url_for('controller.index_view'))
         session.permanent = True
         session['username'] = username
     return jsonify(r)
@@ -51,7 +51,7 @@ def register():
     if status:
         u.save()
         r['success'] = True
-        r['next'] = request.args.get('next', url_for('controllers.index_view'))
+        r['next'] = request.args.get('next', url_for('controller.index_view'))
         session.permanent = True
         session['username'] = u.username
     else:
@@ -59,5 +59,8 @@ def register():
         r['message'] = '\n'.join(msgs)
     return jsonify(r) 
 
-
+@main.route('/logout')
+def logout():
+    session['username'] = None
+    return render_template('index.html', user=None)
 

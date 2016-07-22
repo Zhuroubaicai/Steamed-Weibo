@@ -7,7 +7,7 @@ def init_app():
     db_path = 'db.sqlite'
 
     app = Flask(__name__)
-    app.config['SQLALCHEMY_TRACK_modIFICATIONS'] = True
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.secret_key = 'asdfsdfasdf'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_path)
 

@@ -56,10 +56,12 @@
                     tweetDisplayAdd($('#id-input-content').val());
                 });
             }
+    
 
             function __main(){
                 setup();
                 bindActions();
+                
             }
             $(document).ready(function(){
                 __main();
@@ -78,7 +80,12 @@
                     <button id="id-btn-search" class="btn btn-default">搜索</button>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
+                    {% if user is none %}
                     <li><a href="/login">登录/注册</a></li>
+                    {% endif %}
+                    {% if user is not none %}
+                    <li><a href="/logout">注销</a></li>
+                    {% endif %}
                 </ul>
            </div>
         </header>
